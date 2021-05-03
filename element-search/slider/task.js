@@ -1,65 +1,44 @@
 'use strict'
 
-const next = document.getElementsByClassName('slider__arrow_next');
-const prev = document.getElementsByClassName('slider__arrow_prev');
-let currentSlide = 0;
-
-const sliderItems = document.getElementsByClassName('slider__item');
-const sliderItemsLength = sliderItems.length;
+const sliderItems = document.querySelectorAll('.slider__item');
+const prev = document.querySelector('.slider__arrow_prev');
+const next = document.querySelector('.slider__arrow_next');
 
 const sliderDots = document.getElementsByClassName('slider__dot');
 const sliderDotsLength = sliderDots.length;
 
-next[0].onclick = function() {
-    if (currentSlide == sliderItemsLength - 1) {
-        sliderItems[0].classList.add('slider__item_active');
-        sliderDots[0].classList.add('slider__dot_active');
-        sliderItems[currentSlide].classList.remove('slider__item_active');
-        sliderDots[currentSlide].classList.remove('slider__dot_active');
-        currentSlide = 0;
+next.addEventListener('click', function () {
+    let arr = Array.from(sliderItems)
+    let index = arr.findIndex(hasActive);
 
-    } else if (currentSlide == 0) {
-        sliderItems[1].classList.add('slider__item_active');
-        sliderDots[1].classList.add('slider__dot_active');
-        sliderItems[0].classList.remove('slider__item_active');
-        sliderDots[0].classList.remove('slider__dot_active');
-        currentSlide++;
+    sliderItems[index].classList.remove('slider__item_active');
+    sliderDots[index].classList.remove('slider__dot_active');
+    
+    if (index == (arr.length - 1)) { index = -1 };     
+    sliderItems[index + 1].classList.add('slider__item_active');
+    sliderDots[index + 1].classList.add('slider__dot_active');
+})
 
-    } else {
-        sliderItems[+currentSlide + 1].classList.add('slider__item_active');
-        sliderDots[+currentSlide + 1].classList.add('slider__dot_active');
-        sliderItems[currentSlide].classList.remove('slider__item_active');
-        sliderDots[currentSlide].classList.remove('slider__dot_active');
-        currentSlide++;
-    }
-}
+prev.addEventListener('click', function () {
+    let arr = Array.from(sliderItems)
+    let index = arr.findIndex(hasActive);
 
-prev[0].onclick = function() {    
-    if (currentSlide == sliderItemsLength - 1) {
-        sliderItems[sliderItemsLength - 2].classList.add('slider__item_active');
-        sliderDots[sliderItemsLength - 2].classList.add('slider__dot_active');
-        sliderItems[sliderItemsLength - 1].classList.remove('slider__item_active');
-        sliderDots[sliderItemsLength - 1].classList.remove('slider__dot_active');
-        currentSlide = sliderItemsLength - 2;
+    sliderItems[index].classList.remove('slider__item_active');
+    sliderDots[index].classList.remove('slider__dot_active');
+    
+    if (index == 0) { index = arr.length };
+    sliderItems[index - 1].classList.add('slider__item_active');    
+    sliderDots[index - 1].classList.add('slider__dot_active');
+})
 
-    } else if (currentSlide == 0) {
-        sliderItems[sliderItemsLength - 1].classList.add('slider__item_active');
-        sliderDots[sliderItemsLength - 1].classList.add('slider__dot_active');
-        sliderItems[0].classList.remove('slider__item_active');
-        sliderDots[0].classList.remove('slider__dot_active');
-        currentSlide = (sliderItemsLength - 1);
-
-    } else {
-        sliderItems[+currentSlide - 1].classList.add('slider__item_active');
-        sliderDots[+currentSlide - 1].classList.add('slider__dot_active');
-        sliderItems[currentSlide].classList.remove('slider__item_active');
-        sliderDots[currentSlide].classList.remove('slider__dot_active');
-        currentSlide--;
-    }
+function hasActive (e) {
+    return e.classList.contains('slider__item_active');
 }
 
 
-for (let i = 0; i < sliderDotsLength; i++) {
+/*
+
+  for (let i = 0; i < sliderDotsLength; i++) {
     sliderDots[i].onclick = function() {        
         for (let i = 0; i < sliderDotsLength; i++) {
             if (sliderItems[i].classList.contains('slider__item_active')) {
@@ -70,7 +49,8 @@ for (let i = 0; i < sliderDotsLength; i++) {
 
         sliderItems[i].classList.add('slider__item_active');
         sliderDots[i].classList.add('slider__dot_active');
-
+        sliderDots[hasActive].classList.add('slider__dot_active');
         currentSlide = i;
     }
 }
+*/
