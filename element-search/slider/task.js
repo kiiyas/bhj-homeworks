@@ -93,7 +93,7 @@ for (let i = 0; i < sliderDots.length; i++) {
         getStep (position);        
     })
 
-
+}
 function getStep (position) { //передать сюда номер позиции в зависимости от нажатой кнопки    
     let index = slideArr.findIndex(hasActive);
 
