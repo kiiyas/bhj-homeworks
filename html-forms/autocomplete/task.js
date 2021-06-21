@@ -67,20 +67,18 @@ class Autocomplete {
     this.list.innerHTML = html.join('');
   }
 
-  getMatches( text ) { //text - фраза, которую вводят в поле поиска
-
+  getMatches( text ) {
     const optionsList = this.input.options;
     const result = [];
 
-    for (let i = 0; i < optionsList.length; i++) {
-      if (optionsList[i].text.includes(text)) {
+    for (let option of optionsList) {
+      if (option.text.includes(text)) {
         result.push({
-          text: optionsList[i].text,
-          value: optionsList[i].value
+          text: option.text,
+          value: option.value,
         });
       }
-    }
-    
+    }    
     return result;
   }
     /*
