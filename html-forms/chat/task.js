@@ -34,6 +34,7 @@ clientInput.addEventListener('keydown', (e) => {
                 </div>`;
                        
         clientInput.value = ``;
+        chatMessages.scrollIntoView({block: "end", behavior: "auto"}); 
         
 
         setTimeout(() => {
@@ -42,8 +43,10 @@ clientInput.addEventListener('keydown', (e) => {
                     <div class="message__time">` + currentTime + `</div>
                     <div class="message__text">` + botMessages[Math.floor(Math.random() * botMessages.length)] + `</div>
                 </div>`;
+            chatMessages.scrollIntoView({block: "end", behavior: "auto"}); 
                       
         }, 1000); 
+        
 
 
         //При активном окне чата и простое 30 секунд, робот задать вопрос в чат
@@ -61,7 +64,9 @@ clientInput.addEventListener('keydown', (e) => {
             }
                       
         }, 30000);        
-    }    
+    }
+    
+    
 });
 
 

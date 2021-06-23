@@ -1,9 +1,7 @@
 'use strict'
 
 const interestGroups = document.querySelectorAll('div.interests > ul > li.interest > label > input');
-const interests = document.querySelectorAll('li.interest > ul > li.interest');
-//const form = document.querySelectorAll('div.interests');
-
+const interests = document.querySelectorAll('li.interest > ul > li.interest > label > input');
 
 for (let interestGroup of interestGroups) {
     interestGroup.addEventListener('change', () => {
@@ -17,31 +15,24 @@ for (let interestGroup of interestGroups) {
             for (let element of childElement) {
                 element.checked = false;
             }   
-        }
-
-        
+        }        
     });
 }
 
-
-//
-//! для обработки вверх по дереву css селекторы подобрать точнее
-/*
 for (let interest of interests) {
     interest.addEventListener('change', () => {
-        const parentList = interest.closest('ul.interests_active');
-        const childElement = parentList.getElementsByTagName('input');  
-        for (let element of childElement) {
-            if (element.checked) {
-                for (let interestGroup of interestGroups) {
-                    interestGroup.indeterminate = true;
-                }
-            }
-        } 
+        const siblingsInputs = interest.closest('ul.interests_active').getElementsByTagName('input');   
+        const siblingsArr = Array.from(siblingsInputs);
+        const parentMainInterest = interest.closest('ul.interests_active').closest('li.interest').querySelector('input.interest__check');
         
-        
-
-        
+        if (siblingsArr.every((item) => (item.cheked == true))) {
+            parentMainInterest.checked = true;
+            parentMainInterest.indeterminate = false;
+        } else if (siblingsArr.every((item) => (item.cheked == false))) {
+            parentMainInterest.checked = false;
+            parentMainInterest.indeterminate = false;
+        } else {
+            parentMainInterest.indeterminate = true;
+        }        
     });
 }
-*/
