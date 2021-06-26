@@ -1,38 +1,41 @@
 'use strict'
 
-const interestGroups = document.querySelectorAll('div.interests > ul > li.interest > label > input');
-const interests = document.querySelectorAll('li.interest > ul > li.interest > label > input');
+const inputs = document.querySelectorAll('input');
 
-for (let interestGroup of interestGroups) {
-    interestGroup.addEventListener('change', () => {
-        const parentList = interestGroup.closest('li');
-        const childElement = parentList.getElementsByTagName('input');
-        if (interestGroup.checked) {            
-            for (let element of childElement) {
-                element.checked = true;
+for (let input of inputs) {
+    input.addEventListener('change', () => {
+        const parent = input.closest('li');
+        const childrens = parent.querySelectorAll('input');
+
+        //любой чекнутый инпут - чекает всех своих детей        
+        if (input.checked) {            
+            for (let child of childrens) {
+                child.checked = true;
             }                
         } else {
-            for (let element of childElement) {
-                element.checked = false;
+            for (let child of childrens) {
+                child.checked = false;
             }   
-        }        
-    });
-}
-
-for (let interest of interests) {
-    interest.addEventListener('change', () => {
-        const siblingsInputs = interest.closest('ul.interests_active').getElementsByTagName('input');   
-        const siblingsArr = Array.from(siblingsInputs);
-        const parentMainInterest = interest.closest('ul.interests_active').closest('li.interest').querySelector('input.interest__check');
+        } 
         
-        if (siblingsArr.every((item) => (item.cheked == true))) {
-            parentMainInterest.checked = true;
-            parentMainInterest.indeterminate = false;
-        } else if (siblingsArr.every((item) => (item.cheked == false))) {
-            parentMainInterest.checked = false;
-            parentMainInterest.indeterminate = false;
+        //если сделать Array.from:
+        //input.checked == true ? childrens.forEach(e => e.checked = true) 
+        //: childrens.forEach(e => e.checked = false);        
+
+
+        const groupParent = input.closest('ul.interests_active');
+        const generalInterestParent = groupParent.closest('.interest');
+        const generalInterest = generalInterestParent.querySelector('input');
+        const siblings = Array.from(groupParent.querySelectorAll('input'));
+
+        if (siblings.every(e => e.checked == true)) {
+            generalInterest.checked = true;
+            generalInterest.indeterminate = false;            
+        } else if (siblings.every(e => e.checked == false)) {
+            generalInterest.checked = false;
+            generalInterest.indeterminate = false;            
         } else {
-            parentMainInterest.indeterminate = true;
-        }        
-    });
+            generalInterest.indeterminate = true;
+        }
+    })
 }
