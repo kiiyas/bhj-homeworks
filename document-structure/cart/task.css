@@ -1,6 +1,7 @@
 body {
   font-family: Arial;
 }
+
 .cart__products {
   display: flex;
   justify-content: center;
@@ -86,6 +87,22 @@ body {
   opacity: 0.8;
 }
 
+.product__remove {
+  background: rgb(233, 83, 83);
+  padding: 10px 20px;
+  color: rgb(255, 255, 255);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product__remove:hover {
+  opacity: 0.8;
+}
+
 .product-shadow {
   position: absolute;
+}
+
+.invisible {
+  display: none;
 }
