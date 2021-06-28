@@ -1,9 +1,9 @@
 'use strict'
 
-
 const cart = document.getElementsByClassName('cart');
 const cartProducts = document.getElementsByClassName('cart__products')[0];
 const cartIsFull = document.getElementsByClassName('cart__product');
+
 
 function seeCart() {    
     if (!cartIsFull[0]) {
@@ -36,7 +36,7 @@ for (let button of addToCartButton) {
    
     
     button.addEventListener('click', (e) => {         
-        
+        //let target = e.target;
         let newCartProduct = document.createElement('div');
         newCartProduct.className = 'cart__product';
         newCartProduct.dataset.id = productID;
@@ -51,23 +51,26 @@ for (let button of addToCartButton) {
            
         //cartProducts.append(newCartProduct);
         
+        const cartArray = Array.from(document.getElementsByClassName('cart__product'));
+        let gettedCartProduct = cartArray.find((e) => {
+            if (e.getAttribute(`data-id`) == productID) {
+               return e; 
+            };            
+        })
         
-        //!!! trouble
-        //добавить проверку на наличие в корзине товара на 52 строку
-        //если есть - увеличивать cart__product-count у товара с таким же data-id
-
-        for (let item of cartIsFull) {
-            if (e.target.closest('div.product').dataset.id != item.dataset.id) {
-                console.log('there is');   
-                cartProducts.append(newCartProduct);
-            } else {
-                console.log('to add');
-                //увеличивать cart__product-count у товара с таким же data-id
+        if (gettedCartProduct == undefined) {
+            cartProducts.append(newCartProduct);
+        } else {
+            for (let item of cartIsFull) {
+                if (item.getAttribute(`data-id`) == productID) {
+                    let cartProductCount = parseInt(item.querySelector(`.cart__product-count`).textContent);
+                    let newProductValue = cartProductCount + parseInt(quantity);
+                    item.querySelector(`.cart__product-count`).textContent = newProductValue;
+                    break;
+                }
             }
-        } 
-        
-        //!!! trouble
-        
+        }
+                
         seeCart();
 
         //удаление из корзины
@@ -82,5 +85,7 @@ for (let button of addToCartButton) {
         })
 };      
       
+
+
 
 
