@@ -8,9 +8,8 @@ const tasksList = document.getElementById('tasks__list');
 function doElement() {
     const element = document.createElement('div');
     element.className = 'task';
-    element.innerHTML = '<div class="task"> \
-    <div class="task__title"> ' + input.value + '</div> \
-    <a href="#" class="task__remove">&times;</a> </div>';
+    element.innerHTML = '<div class="task__title"> ' + input.value + '</div> \
+    <a href="#" class="task__remove">&times;</a>';
 
     return element;
 }
