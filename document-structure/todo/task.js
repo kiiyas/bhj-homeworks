@@ -15,6 +15,7 @@ function doElement() {
 }
 
 input.addEventListener('keydown', (e) => {
+    input.value = input.value.trim();
     if (e.key === 'Enter' && input.value != '' 
     || e.key === 'NumpadEnter' && input.value != '') {
         e.preventDefault();
@@ -26,6 +27,7 @@ input.addEventListener('keydown', (e) => {
 
 tasksAdd.addEventListener('click', (e) => {
     e.preventDefault();
+    input.value = input.value.trim();
     if (input.value !== '') {
         const element = doElement();
         tasksList.insertAdjacentElement('beforeEnd', element);
