@@ -29,10 +29,18 @@ form.addEventListener('submit', (e) => {
             formToggle();
             welcome.classList.add('welcome_active');
             localStorage.setItem('user_id', xhr.response.user_id);
-        } else {            
-            const element = document.createElement('div');
-            element.innerHTML = '<span>Неправильные логин или пароль!</span>';
+        } else {
+            const errorInput = document.getElementById('errorInput');
+            if (!errorInput) {
+                const element = document.createElement('div');
+            element.innerHTML = '<span id="errorInput">Неправильные логин или пароль!</span>';
             form.closest('.signin').insertAdjacentElement('beforeEnd', element);
+
+            const inputs = form.getElementsByClassName('control');
+            for (let input of inputs) {
+                input.value = '';
+            }       
+            }                 
         }        
     });
 });
